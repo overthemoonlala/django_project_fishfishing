@@ -1,0 +1,61 @@
+{% load static %}
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+    {# Favicon #}
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
+  <link href="{% static 'css/styles1.css' %}" rel="stylesheet" />
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  
+  <script>
+    var id = $('#id');
+    var pass = $('#pass');
+    var btn = $('#btn');
+
+    $(btn).on('click', function () {
+      if ($(id).val() == "") {
+        $(id).next('label').addClass('warning');
+      }
+      else if ($(pass).val() == "") {
+        $(pw).next('label').addClass('warning');
+      }
+    });
+  </script>
+  <script type="text/javascript">
+function win_open(page) {
+	   var op = "width=500, height=350, left=50,top=150";
+	   open(page,"",op);
+}
+</script>
+</head>
+
+<body>
+  <section class="login-form">
+    <h1>LOGIN<h1>
+        <form action="../login/" method="post" name="f">
+          {% csrf_token %}
+          <div class="int-area">
+            <input type="text" name="id" id="id" autocomplete="off" required>
+            <label for="id">USER NAME</label>
+          </div>
+
+          <div class="int-area">
+            <input type="password" name="pass" id="pw" autocomplete="off" required>
+            <label for="pw">PASSWORD</label>
+          </div>
+
+          <div class="btn-area">
+            <button type="submit">LOGIN</button>
+          </div>
+        </form>
+        <div class="caption">
+          <a href="../join/">가입을 아직 안하셨나요!?</a> <br>
+          <a href=""  onclick="win_open('pwsearch')">비밀번호가 기억이 안나시나요?</a>
+        </div>
+  </section>
+
+</body>
+
+</html>

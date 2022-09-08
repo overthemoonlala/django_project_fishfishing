@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<title>{% block title %} 부모템플릿 {% endblock %}</title>
+{# Favicon #}
+<link rel="icon" type="image/x-icon" href= "{% static 'assets/favicon.ico' %}">      
+{# Core theme CSS (includes Bootstrap) #}
+<link href= "{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+    
+    
+<body>
+{# Navigation#}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+{% block sidebar %}
+    <div class="container">
+        <a class="navbar-brand" href="/index"><img src= "{% static 'assets/img/navbar-logo.png' %}" alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+            {% if request.session.login %} {# 로그인 된 경우 #}
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/fishlist/list">Fish List</a></li>    
+                <li class="nav-item"><a class="nav-link" href="/theme/mypage/{{request.session.login}}/">My Page</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+            {% else %} {# 로그인 안된 경우 #}
+                <li class="nav-item"><a class="nav-link" href="/fishlist/list">Fish List</a></li>
+                <li class="nav-item"><a class="nav-link" href="/theme/login">Login</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+ </nav>
+        
+      
+      
+      
+<section>
+{% block content %}{% endblock %}
+</section>
+      
+
+        
+        
+{# Footer#}
+<footer class="footer py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-lg-start">Copyright &copy; Fish Fishing</div>
+            <div class="col-lg-4 my-3 my-lg-0">
+                       
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <p> 한누리&nbsp; &nbsp;&nbsp;  박영주&nbsp; &nbsp;&nbsp;  최에녹</p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+        
+        
+{# Core theme JS #}
+<script src= "{% static 'js/scripts.js' %}"></script>
+
+</body>
+</html>

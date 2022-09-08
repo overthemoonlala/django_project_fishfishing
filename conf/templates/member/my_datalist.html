@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} 분석기록리스트 {% endblock %}
+{% block content %}
+<div class="container">
+  <section class="page-section bg-light" id="mypage">
+    <div class="row">
+      <div class="col-2">
+        <div class="container">
+          <a href="/mypage/{{request.session.login}}">회원정보</a><br>
+          <a href="/my_datalist/{{request.session.login}}">분석기록</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="/file/picture/{{mem.picture}}" width="200" height="210"" class=" card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">당신이 잡은 물고기는요?</h5>
+          <p class="card-text">...</p>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">당신이 잡은 물고기는<...>입니다.</h5>
+          <p class="card-text">분석된 물고기의 db 가 나오면 좋겠습니다.</p>
+        </div>
+      </div>
+  </section>
+</div>
+</div>
+{% endblock %}

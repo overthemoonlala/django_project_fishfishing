@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>사진 분석</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<h3>사진업로드</h3>
+<table><tr><td><img id="preview" src="/file/picture/{{fname}}"></td></tr>
+<tr><td><form action="/analysis/result/" method="post"   enctype="multipart/form-data">
+  {%  csrf_token  %}
+  <input type="file" name="fish" id="imageFile" accept="img/*">
+  <input type="submit" value="사진업로드">
+</form></td></tr>
+<tr><td>{{fish}}=>{{msg.msg}}</td></tr></table>
+
+
+    
+<script type="text/javascript">
+  {# imagefile: id 속성의 값이 imageFile인 태그 선택 : file태그 #}
+let imagefile = document.querySelector('#imageFile');
+  {# // preview: id 속성의 값이 preview인 태그 선택 : img태그 #}
+let preview = document.querySelector('#preview');
+ // imagefile 태그에 chage 이벤트 발생시 function(e) 호출됨
+imagefile.addEventListener('change', function(e) {
+  // e : event 객체
+  // e.target : event 발생 태그
+  let get_file = e.target.files;  //선택된 이미지 파일
+  let reader = new FileReader();  //파일선택.
+  reader.onload = (function (Img) {
+    return function(e) { Img.src = e.target.result;    }
+  })(preview);
+  if(get_file){   reader.readAsDataURL(get_file[0]);  }
+});</script>
+</body></html>

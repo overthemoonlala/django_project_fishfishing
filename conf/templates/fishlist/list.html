@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %} 물고기 리스트 {% endblock title %}
+
+
+{% block content %}
+<div class="container">
+ <section class="page-section bg-light" id="fishlist"> 
+ <form action="../../fishlist/list/" method="post" name="fishform">
+ {% csrf_token %} 
+    <div class= "fishtype", style="width:300px; margin:auto; width: 450px; ">
+        <label><input type="radio" name="fish" value="1"> 일반어류 </label>&nbsp; &nbsp; &nbsp; &nbsp;
+        <label><input type="radio" name="fish" value="2"> 독성어류 </label>&nbsp; &nbsp; &nbsp; &nbsp;
+        <label><input type="radio" name="fish" value="3"> 멸종위기어류 </label>
+        <input type="submit" value="확인">
+    </div>
+
+
+
+{% if nomallist %}
+{#일반어류#}
+<table border="1" width="100%" height= "100%" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+	<tr align="center" valign="middle">
+			<th width="5%">번호</th>
+			<th width="15%">이름</th>
+			<th width="20%">모양</th>
+			<th width="20%">생태</th>
+			<th width="20%">서식지</th>
+			<th width="20%">먹이</th>
+    {% for f in nomallist %} {# 반복문 #}
+    <tr align="center" valign="middle">
+			<td>{{f.id}}</td>
+			<td><a href="../detail/{{f.name}}/">{{f.name}}</a></td>
+			<td>{{f.shape}}</td>
+			<td>{{f.ecology}}</td>
+			<td>{{f.place}}</td>
+			<td>{{f.eat}}</td></tr>
+    {% endfor %}           
+</table>  
+
+
+
+
+
+{% elif poisonlist %}
+{#독성어류#}
+<table border="1" width="100%" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+	<tr align="center" valign="middle">
+			<th width="5%">번호</th>
+			<th width="15%">이름</th>
+			<th width="20%">모양</th>
+			<th width="20%">생태</th>
+			<th width="20%">서식지</th>
+			<th width="20%">먹이</th>
+    {% for f in poisonlist %} {# 반복문 #}
+    <tr align="center" valign="middle" height= "">
+			<td>{{f.id}}</td>
+			<td><a href="../detail/{{f.name}}/">{{f.name}}</a></td>
+			<td>{{f.shape}}</td>
+			<td>{{f.ecology}}</td>
+			<td>{{f.place}}</td>
+			<td>{{f.eat}}</td></tr>
+    {% endfor %}           
+</table>  
+
+
+
+
+
+{% else %}
+{#멸종위기어류#}
+<table border="1" width="100%" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+	<tr align="center" valign="middle">
+			<th width="5%">번호</th>
+			<th width="15%">이름</th>
+			<th width="20%">멸종원인</th>
+			<th width="20%">모양</th>
+			<th width="20%">생태</th>
+			<th width="20%">서식지</th></tr>
+    {% for f in extinctlist %} {# 반복문 #}
+    <tr align="center" valign="middle">
+			<td>{{f.id}}</td>
+			<td><a href="../detail/{{f.name}}/">{{f.name}}</a></td>
+			<td>{{f.reason}}</td>
+			<td>{{f.shape}}</td>
+			<td>{{f.ecology}}</td>
+			<td>{{f.place}}</td></tr>
+    {% endfor %}           
+</table>     
+{% endif %}
+
+
+
+
+ </section>
+</div> 
+{% endblock content %}

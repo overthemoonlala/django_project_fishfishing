@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} 마이페이지 {% endblock %}
+{% block content %}
+<div class="container">
+  <section class="page-section bg-light" id="mypage">
+    <div class="row">
+      <div class="col-2">
+        <div class="container">
+          <a href="/mypage/{{request.session.login}}">회원정보</a><br>
+          <a href="/my_datalist/{{request.session.login}}">분석기록</a>
+        </div>
+      </div>
+      <div class="col-10">
+        <h4>회원 정보 보기</h4>
+        <script type="text/javascript">
+          function inputcheck(f) {
+            if (f.pass.value == "") {
+              alert("비밀번호를 입력하세요");
+              f.pass.focus();
+              return false;
+            }
+          }
+          function win_passchg() {
+            var op = "width=500, height=250, left=50,top=150";
+            open("../../password/{{mem.id}}/", "", op);
+          }
+          function win_upload() {
+            var op = "width=500,height=150,left=50, top=150";
+            open("../../picture/", "", op);
+          }
+        </script>
+
+        <form action="../../update/{{mem.id}}/" name="f" method="post" onsubmit="return inputcheck(this)">
+          {% csrf_token %}
+          <table class="table table-bordered">
+            <tr>
+              <th>아이디</th>
+              <td><input type="text" name="id" readonly value="{{mem.id}}"></td>
+            </tr>
+            <tr>
+              <th>비밀번호</th>
+              <td><input type="password" name="pass"></td>
+            </tr>
+            <tr>
+              <th>이름</th>
+              <td><input type="text" name="name" value="{{mem.name}}"></td>
+            </tr>
+            <tr>
+              <th>성별</th>
+              <td><input type="radio" name="gender" value="1" {% if mem.gender == 1 %} checked {% endif %}>남
+                <input type="radio" name="gender" value="2" {% if mem.gender == 2 %} checked {% endif %}>여
+              </td>
+            </tr>
+            <tr>
+              <th>전화번호</th>
+              <td colspan="2"><input type="text" name="tel" value="{{mem.tel}}"></td>
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td colspan="2"><input type="text" name="email" value="{{mem.email}}"></td>
+            </tr>
+            <tr>
+              <td colspan="3"><input type="submit" value="회원수정">
+                <input type="button" value="비밀번호수정" onclick="win_passchg()">
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+{% endblock %}
